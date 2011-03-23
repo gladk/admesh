@@ -41,9 +41,6 @@ static float stl_get_little_float(FILE *fp);
 void
 stl_open(stl_file *stl, char *file)
 {
-  stl->stats.original_num_facets = 0;
-  stl->stats.number_of_facets = 0;
-  
   stl_initialize(stl, file);
   stl_allocate(stl);
   stl_read(stl, 0, 1);
@@ -96,7 +93,13 @@ stl_initialize(stl_file *stl, char *file)
   stl->stats.facets_reversed = 0;
   stl->stats.normals_fixed = 0;
   stl->stats.number_of_parts = 0;
+  stl->stats.original_num_facets = 0;
+  stl->stats.number_of_facets = 0;
   
+  stl->neighbors_start = NULL;
+  stl->facet_start = NULL;
+  stl->v_indices = NULL;
+  stl->v_shared = NULL;
 
 
   /* Open the file */
@@ -344,9 +347,13 @@ stl_read(stl_file *stl, int first_facet, int first)
 void
 stl_close(stl_file *stl)
 {
-  free(stl->neighbors_start);
-  free(stl->facet_start);
-  free(stl->v_indices);
-  free(stl->v_shared);
+    if(stl->neighbors_start != NULL)
+	free(stl->neighbors_start);
+    if(stl->facet_start != NULL)
+	free(stl->facet_start);
+    if(stl->v_indices != NULL)
+	free(stl->v_indices);
+    if(stl->v_shared != NULL)
+	free(stl->v_shared);
 }
 

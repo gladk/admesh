@@ -1,7 +1,7 @@
-                     ADMesh version 0.92
+                     ADMesh version 0.93
                     ********************
 
-ADMesh is a program for processing triangulated solid meshes.  Version 0.92
+ADMesh is a program for processing triangulated solid meshes.  Version 0.93
 currently it only supports the STL file format that is used for rapid
 prototyping applications.
 
@@ -23,10 +23,10 @@ Features:
 
  ** ADMesh outputs the following statistics after processing:
 
-================= Results produced by ADMesh version 0.92 =================
+================= Results produced by ADMesh version 0.93 =================
 Input file         : sphere.stl
 File type          : Binary STL file
-Header             : Processed by ADMesh version 0.92
+Header             : Processed by ADMesh version 0.93
 ============== Size ==============
 Min X = -1.334557, Max X = 1.370952
 Min Y = -1.377953, Max Y = 1.377230
@@ -102,19 +102,19 @@ its source code cannot be used in commercial software.  Details of the GPL
 are in the file COPYING that comes with the ADMesh software package.
 
 ADMesh can be obtained via http from:
-  http://www.engr.csulb.edu/~amartin/admesh/admesh-0.92.tar.gz
+  http://www.engr.csulb.edu/~amartin/admesh/admesh-0.93.tar.gz
 or visit my home page at:
   http://www.engr.csulb.edu/~amartin
 
 If anyone has trouble getting this file via http, first, you might try the
 following command:
-lynx -source http://www.engr.csulb.edu/~amartin/admesh/admesh-0.92.tar.gz
-                                                        > admesh-0.92.tar.gz
+lynx -source http://www.engr.csulb.edu/~amartin/admesh/admesh-0.93.tar.gz
+                                                        > admesh-0.93.tar.gz
 
 If you still can't get it, please let me know.  I am still waiting for a
 response from the sysadmin at CSULB regarding an anonymous ftp directory.
 
-ADMesh version 0.92 can be considered beta software.  It has a version number
+ADMesh version 0.93 can be considered beta software.  It has a version number
 less than 1.0 not because I think that it is particularly buggy, but it is
 very new software.
 

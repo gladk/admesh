@@ -52,7 +52,7 @@ void
 stl_stats_out(stl_file *stl, FILE *file, char *input_file)
 {
   fprintf(file, "\n\
-================= Results produced by ADMesh version 0.92 ================\n");
+================= Results produced by ADMesh version 0.93 ================\n");
   fprintf(file, "\
 Input file         : %s\n", input_file);
   if(stl->stats.type == binary)

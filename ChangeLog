@@ -10,11 +10,12 @@ Tue Aug  1 03:25:46 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
 
 Wed Aug  2 16:56:03 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
 
-        *  Add support for generating shared vertices
+	*  Add support for generating shared vertices
 	*  Move fclose(stl->fp) to stl_open()
-Tue Oct 31 13:56:25 PST 1995
 
-        *  Don't use area any more to see whether or not the normal should
+Tue Oct 31 13:56:25 PST 1995  Anthony Martin <amartin@engr.csulb.edu>
+
+	*  Don't use area any more to see whether or not the normal should
 	be calculated.  Just go ahead and calculate the normal, and let the
 	code in stl_normalize vector() take care of the case of a normal 
 	with zero area.
@@ -22,6 +23,9 @@ Tue Oct 31 13:56:25 PST 1995
 	that it doesn't check the normal vector after it adds it.  Just
 	caused accounting error for normals fixed.
 
-Wed Nov  1 08:39:17 PST 1995
+Wed Nov  1 08:39:17 PST 1995  Anthony Martin <amartin@engr.csulb.edu>
         *  Initialize normal vector to 0,0,0 when a new facet is added.
 
+Sat Jan 20 23:43:01 PST 1996  Anthony Martin <amartin@engr.csulb.edu>
+        *  stlinit.c  Initialize pointers to NULL.  Check whether they have
+	been allocated before free()ing them.  Duh.
