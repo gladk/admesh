@@ -47,6 +47,7 @@ stl_open(stl_file *stl, char *file)
   stl_initialize(stl, file);
   stl_allocate(stl);
   stl_read(stl, 0, 1);
+  fclose(stl->fp);
 }
 
 static int
@@ -343,8 +344,9 @@ stl_read(stl_file *stl, int first_facet, int first)
 void
 stl_close(stl_file *stl)
 {
-  fclose(stl->fp);
   free(stl->neighbors_start);
   free(stl->facet_start);
+  free(stl->v_indices);
+  free(stl->v_shared);
 }
 

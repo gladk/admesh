@@ -2,3 +2,26 @@ Tue Aug  1 03:25:46 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
 
         *  Fix it so that big endian systems write a little endian file
 	Also, write null characters after the label in stl_write_binary
+
+Tue Aug  1 03:25:46 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
+
+        *  Change stl_fill_holes so that duplicate facets are not likely
+	to be generated.  Should improve quality of filled holes.
+
+Wed Aug  2 16:56:03 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
+
+        *  Add support for generating shared vertices
+	*  Move fclose(stl->fp) to stl_open()
+Tue Oct 31 13:56:25 PST 1995
+
+        *  Don't use area any more to see whether or not the normal should
+	be calculated.  Just go ahead and calculate the normal, and let the
+	code in stl_normalize vector() take care of the case of a normal 
+	with zero area.
+	*  Changes call to stl_check_normal_vector() in stl_add_facet() so
+	that it doesn't check the normal vector after it adds it.  Just
+	caused accounting error for normals fixed.
+
+Wed Nov  1 08:39:17 PST 1995
+        *  Initialize normal vector to 0,0,0 when a new facet is added.
+

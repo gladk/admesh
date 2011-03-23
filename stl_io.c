@@ -52,7 +52,7 @@ void
 stl_stats_out(stl_file *stl, FILE *file, char *input_file)
 {
   fprintf(file, "\n\
-================= Results produced by ADMesh version 0.91 ================\n");
+================= Results produced by ADMesh version 0.92 ================\n");
   fprintf(file, "\
 Input file         : %s\n", input_file);
   if(stl->stats.type == binary)
@@ -258,7 +258,7 @@ stl_write_binary(stl_file *stl, char *file, char *label)
     }
 
   fprintf(fp, "%s", label);
-  for(i = strlen(label); i < 80; i++) putc(0, fp);
+  for(i = strlen(label); i < LABEL_SIZE; i++) putc(0, fp);
 
   fseek(fp, LABEL_SIZE, SEEK_SET);
 

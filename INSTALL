@@ -1,13 +1,13 @@
 To install ADMesh, you will need a system with a c compiler.
 Do the following:
 
-1.  Get the file admesh-0.91.tar.gz
+1.  Get the file admesh-0.92.tar.gz
 2.  Extract the archive.  i.e. type something like the following:
-         tar -zxvf admesh-0.91.tar.gz
+         tar -zxvf admesh-0.92.tar.gz
 	 or if that doesn't work, try the following:
-         cat admesh-0.91.tar.gz | gzip -d | tar xvf -
-    The source files will be extracted into a directory called admesh-0.91
-3.  cd admesh-0.91
+         cat admesh-0.92.tar.gz | gzip -d | tar xvf -
+    The source files will be extracted into a directory called admesh-0.92
+3.  cd admesh-0.92
 4.  type the following:
          ./configure
 	 make

@@ -9,7 +9,7 @@ LIBOBJS = @LIBOBJS@
 .SUFFIXES:
 .SUFFIXES: .c .o
 
-OBJ = admesh.o connect.o stl_io.o stlinit.o util.o normals.o @LIBOBJS@
+OBJ = admesh.o connect.o stl_io.o stlinit.o util.o normals.o shared.o @LIBOBJS@
 
 all: @srcdir@/configure $(OBJ)
 	$(CC) @LDFLAGS@ -o admesh $(OBJ) @LIBS@

@@ -80,6 +80,11 @@ typedef struct
 
 typedef struct
 {
+  int   vertex[3];
+}v_indices_struct;
+
+typedef struct
+{
   char          header[81];
   stl_type      type;
   int           number_of_facets;
@@ -110,6 +115,7 @@ typedef struct
   int           facets_malloced;
   int           collisions;
   int           shared_vertices;
+  int           shared_malloced;
 }stl_stats;  
 
 typedef struct
@@ -121,6 +127,8 @@ typedef struct
   stl_hash_edge *tail;
   int           M;
   stl_neighbors *neighbors_start;
+  v_indices_struct *v_indices;
+  stl_vertex    *v_shared;
   stl_stats     stats;
 }stl_file;
 
@@ -154,3 +162,6 @@ extern void stl_mirror_xy(stl_file *stl);
 extern void stl_mirror_yz(stl_file *stl);
 extern void stl_mirror_xz(stl_file *stl);
 extern void stl_open_merge(stl_file *stl, char *file);
+extern void stl_generate_shared_vertices(stl_file *stl);
+extern void stl_write_off(stl_file *stl, char *file);
+

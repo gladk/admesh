@@ -28,7 +28,7 @@
 static void stl_reverse_facet(stl_file *stl, int facet_num);
 static void stl_calculate_normal(float normal[], stl_facet *facet);
 static void stl_normalize_vector(float v[]);
-static float stl_calculate_area(stl_facet *facet);
+/* static float stl_calculate_area(stl_facet *facet); */
 static void stl_reverse_vector(float v[]);
 int stl_check_normal_vector(stl_file *stl, int facet_num, int normal_fix_flag);
 
@@ -216,26 +216,14 @@ stl_check_normal_vector(stl_file *stl, int facet_num, int normal_fix_flag)
   /* Returns 0 if the normal is within tolerance */
   /* Returns 1 if the normal is not within tolerance, but direction is OK */
   /* Returns 2 if the normal is not within tolerance and backwards */
-  /* Returns 3 if the area is too small.  i.e. a line or a point */
   /* Returns 4 if the status is unknown. */
   
   float normal[3];
   float test_norm[3];
-  float area;
-  float min_area;
   stl_facet *facet;
 
   facet = &stl->facet_start[facet_num];
-  area = stl_calculate_area(facet);
-  min_area = stl->stats.bounding_diameter * stl->stats.bounding_diameter /
-	     100000000000000.0;
-  if(area < min_area)
-    {
-      /* This facet has almost no area.  Don't bother with it.  It could */
-      /* cause an SIGFPE if we continue.  Perhaps I should just give it */
-      /* a normal like 1.0, 0.0, 0.0 */
-      return 3;
-    }
+
   stl_calculate_normal(normal, facet);
   stl_normalize_vector(normal);
   
@@ -285,6 +273,13 @@ stl_check_normal_vector(stl_file *stl, int facet_num, int normal_fix_flag)
 	}
       return 2;
     }
+  if(normal_fix_flag)
+    {
+      facet->normal.x = normal[0];
+      facet->normal.y = normal[1];
+      facet->normal.z = normal[2];
+      stl->stats.normals_fixed += 1;
+    } 
   return 4;
 }
 
@@ -315,11 +310,13 @@ stl_calculate_normal(float normal[], stl_facet *facet)
   normal[2] = (float)((double)v1[0] * (double)v2[1]) - ((double)v1[1] * (double)v2[0]);
 }
 
+/*
 static float
 stl_calculate_area(stl_facet *facet)
 {
   float cross[3][3];
   float sum[3];
+  float normal[3];
   float area;
   int i;
   
@@ -337,10 +334,13 @@ stl_calculate_area(stl_facet *facet)
   sum[1] = cross[0][1] + cross[1][1] + cross[2][1];
   sum[2] = cross[0][2] + cross[1][2] + cross[2][2];
   
-  area = 0.5 * (facet->normal.x * sum[0] + facet->normal.y * sum[1] +
-		facet->normal.z * sum[2]);
+  stl_calculate_normal(normal, facet);
+  stl_normalize_vector(normal);
+  area = 0.5 * (normal[0] * sum[0] + normal[1] * sum[1] +
+		normal[2] * sum[2]);
   return ABS(area);
 }
+*/
 
 static void
 stl_normalize_vector(float v[])
