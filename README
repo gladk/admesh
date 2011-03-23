@@ -1,9 +1,9 @@
-                     ADMesh version 0.94
+                     ADMesh version 0.95
                     ********************
 
-ADMesh is a program for processing triangulated solid meshes.  Version 0.94
-currently it only supports the STL file format that is used for rapid
-prototyping applications.
+ADMesh is a program for processing triangulated solid meshes. Currently,
+ADMesh only reads the STL file format that is used for rapid prototyping
+applications, although it can write STL, VRML, OFF, and DXF files.
 
 Features:
 ---------
@@ -20,13 +20,17 @@ Features:
  * Mirror about the xy, yz, and xz planes
  * Scale the part by a factor
  * Merge 2 STL files into one
+ * Write an OFF file 
+ * Write a VRML file 
+ * Write a DXF file 
+ * Calculate the volume of a part
 
  ** ADMesh outputs the following statistics after processing:
 
-================= Results produced by ADMesh version 0.94 =================
+================= Results produced by ADMesh version 0.95 =================
 Input file         : sphere.stl
 File type          : Binary STL file
-Header             : Processed by ADMesh version 0.94
+Header             : Processed by ADMesh version 0.95
 ============== Size ==============
 Min X = -1.334557, Max X = 1.370952
 Min Y = -1.377953, Max Y = 1.377230
@@ -37,8 +41,8 @@ Facets with 1 disconnected edge  :    18                   0
 Facets with 2 disconnected edges :     3                   0
 Facets with 3 disconnected edges :     0                   0
 Total disconnected facets        :    21                   0
-=== Processing Statistics ===
-Number of parts       :     1
+=== Processing Statistics ===     ===== Other Statistics =====
+Number of parts       :     1        Volume   :  10.889216
 Degenerate facets     :     0
 Edges fixed           :    24
 Facets removed        :     0
@@ -59,20 +63,10 @@ are 0 unconnected facets.  Whether the resulting mesh is what you really
 want is another question since there is no way for ADMesh to add information
 that isn't there.
 
-I know that there are other file formats besides STL that represent solid
-parts in the form of a triangulated mesh.  For example, I believe that some
-forms of DXF file and several raytracing file formats are like this.  It
-would not be difficult to add read/write/translate capabilities to ADMesh
-for these files.  If anyone knows of a similar format that they want
-supported, please send me a small sample or a description of such a format
-and I will add support for it.
-
 At this point ADMesh is only command-line driven and has no windowing
 capabilities.  This should make it extremely easy to port to any UNIX-like
-system, and it shouldn't have any problems compiling on Windows NT, and it
-probably even compiles under DOS or Windows since it doesn't use any
-UNIX-specific system calls as far as I know.  However, the silly DOS memory
-allocation could cause problems for larger files.
+system, and it shouldn't have any problems compiling on Windows NT, and some
+people have had success compiling it under DOS or Windows using DJGPP.
 
 ADMesh was developed on a 486/66 with 16Mb running the Linux operating system.
 It has also been compiled and run on the following systems:
@@ -102,21 +96,9 @@ its source code cannot be used in commercial software.  Details of the GPL
 are in the file COPYING that comes with the ADMesh software package.
 
 ADMesh can be obtained via http from:
-  http://www.engr.csulb.edu/~amartin/admesh/admesh-0.94.tar.gz
+  http://www.engr.csulb.edu/~amartin/admesh/admesh-0.95.tar.gz
 or visit my home page at:
   http://www.engr.csulb.edu/~amartin
-
-If anyone has trouble getting this file via http, first, you might try the
-following command:
-lynx -source http://www.engr.csulb.edu/~amartin/admesh/admesh-0.94.tar.gz
-                                                        > admesh-0.94.tar.gz
-
-If you still can't get it, please let me know.  I am still waiting for a
-response from the sysadmin at CSULB regarding an anonymous ftp directory.
-
-ADMesh version 0.94 can be considered beta software.  It has a version number
-less than 1.0 not because I think that it is particularly buggy, but it is
-very new software.
 
 Send questions, comments, suggestions, etc. to me at the following address.
 <amartin@engr.csulb.edu>

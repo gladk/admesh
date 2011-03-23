@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996  Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,8 @@
 
 static void stl_rotate(float *x, float *y, float angle);
 static void stl_get_size(stl_file *stl);
+static float get_area(stl_facet *facet);
+static float get_volume(stl_file *stl);
 
 
 void
@@ -122,6 +124,20 @@ stl_scale(stl_file *stl, float factor)
     }
 }
 
+static void calculate_normals(stl_file *stl)
+{
+	long i;
+	float normal[3];
+	
+	for(i = 0; i < stl->stats.number_of_facets; i++){
+		stl_calculate_normal(normal, &stl->facet_start[i]);
+		stl_normalize_vector(normal);
+		stl->facet_start[i].normal.x = normal[0];
+		stl->facet_start[i].normal.y = normal[1];
+		stl->facet_start[i].normal.z = normal[2];
+	}
+}
+
 void
 stl_rotate_x(stl_file *stl, float angle)
 {
@@ -137,6 +153,7 @@ stl_rotate_x(stl_file *stl, float angle)
 	}
     }
   stl_get_size(stl);
+	calculate_normals(stl);
 }
 
 void
@@ -154,6 +171,7 @@ stl_rotate_y(stl_file *stl, float angle)
 	}
     }
   stl_get_size(stl);
+	calculate_normals(stl);
 }
 
 void
@@ -171,7 +189,10 @@ stl_rotate_z(stl_file *stl, float angle)
 	}
     }
   stl_get_size(stl);
+	calculate_normals(stl);
 }
+
+		
 
 static void
 stl_rotate(float *x, float *y, float angle)
@@ -282,4 +303,70 @@ stl_mirror_xz(stl_file *stl)
   stl->stats.max.y = temp_size;
   stl->stats.min.y *= -1.0;
   stl->stats.max.y *= -1.0;
+}
+
+static float get_volume(stl_file *stl)
+{
+	long i;
+	stl_vertex p0;
+	stl_vertex p;
+	stl_normal n;
+	float height;
+	float area;
+	float volume = 0.0;
+	
+	/* Choose a point, any point as the reference */
+	p0.x = stl->facet_start[0].vertex[0].x;
+	p0.y = stl->facet_start[0].vertex[0].y;
+	p0.z = stl->facet_start[0].vertex[0].z;
+
+	for(i = 0; i < stl->stats.number_of_facets; i++){
+		p.x = stl->facet_start[i].vertex[0].x - p0.x;
+		p.y = stl->facet_start[i].vertex[0].y - p0.y;
+		p.z = stl->facet_start[i].vertex[0].z - p0.z;
+		/* Do dot product to get distance from point to plane */
+		n = stl->facet_start[i].normal;
+		height = (n.x * p.x) + (n.y * p.y) + (n.z * p.z);
+		area = get_area(&stl->facet_start[i]);
+		volume += (area * height) / 3.0;
+	}
+	return volume;
+}
+
+void stl_calculate_volume(stl_file *stl)
+{
+	stl->stats.volume = get_volume(stl);
+	if(stl->stats.volume < 0.0){
+		stl_reverse_all_facets(stl);
+		stl->stats.volume = -stl->stats.volume;
+	}
+}
+
+static float get_area(stl_facet *facet)
+{
+	float cross[3][3];
+	float sum[3];
+	float n[3];
+	float area;
+	int i;
+	
+	for(i = 0; i < 3; i++){
+	    cross[i][0]=((facet->vertex[i].y * facet->vertex[(i + 1) % 3].z) -
+			 (facet->vertex[i].z * facet->vertex[(i + 1) % 3].y));
+	    cross[i][1]=((facet->vertex[i].z * facet->vertex[(i + 1) % 3].x) -
+			 (facet->vertex[i].x * facet->vertex[(i + 1) % 3].z));
+	    cross[i][2]=((facet->vertex[i].x * facet->vertex[(i + 1) % 3].y) -
+			 (facet->vertex[i].y * facet->vertex[(i + 1) % 3].x));
+	}
+	
+	sum[0] = cross[0][0] + cross[1][0] + cross[2][0];
+	sum[1] = cross[0][1] + cross[1][1] + cross[2][1];
+	sum[2] = cross[0][2] + cross[1][2] + cross[2][2];
+
+	/* This should already be done.  But just in case, let's do it again */
+	stl_calculate_normal(n, facet);
+	stl_normalize_vector(n);
+
+	area = 0.5 * (n[0] * sum[0] + n[1] * sum[1] + n[2] * sum[2]);
+	return area;
 }

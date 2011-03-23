@@ -26,8 +26,6 @@
 #include "stl.h"
 
 static void stl_reverse_facet(stl_file *stl, int facet_num);
-static void stl_calculate_normal(float normal[], stl_facet *facet);
-static void stl_normalize_vector(float v[]);
 /* static float stl_calculate_area(stl_facet *facet); */
 static void stl_reverse_vector(float v[]);
 int stl_check_normal_vector(stl_file *stl, int facet_num, int normal_fix_flag);
@@ -292,7 +290,7 @@ stl_reverse_vector(float v[])
 }
 
 
-static void
+void
 stl_calculate_normal(float normal[], stl_facet *facet)
 {
   float v1[3];
@@ -342,8 +340,7 @@ stl_calculate_area(stl_facet *facet)
 }
 */
 
-static void
-stl_normalize_vector(float v[])
+void stl_normalize_vector(float v[])
 {
   double length;
   double factor;

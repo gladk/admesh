@@ -95,6 +95,7 @@ stl_initialize(stl_file *stl, char *file)
   stl->stats.number_of_parts = 0;
   stl->stats.original_num_facets = 0;
   stl->stats.number_of_facets = 0;
+  stl->stats.volume = -1.0;
   
   stl->neighbors_start = NULL;
   stl->facet_start = NULL;

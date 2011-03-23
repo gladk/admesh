@@ -34,3 +34,9 @@ Thu Jan 25 16:02:57 PST 1996 Anthony Martin <amartin@engr.csulb.edu>
         *  shared.c Add   fclose(fp); to stl_write_off().
 	*  stl_io.c Add dxf write capability
 	*  shared.c Add vrml write capability
+
+Fri Jul 26 11:31:50 PDT 1996 Anthony Martin <amartin@engr.csulb.edu>
+	*  Update normals after rotation
+	*  Add code to calculate the volume of the part
+
+

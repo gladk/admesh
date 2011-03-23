@@ -1,164 +1,0 @@
-
-ADMESH.DOC,0
-
-COPYING,116
-program will 52,2547
-program proprietary.53,2618
-programs 251,13433
-PROGRAM PROVE 267,14383
-PROGRAMS)277,14996
-
-ChangeLog,0
-
-INSTALL,0
-
-Makefile.in,0
-
-README,0
-
-admesh.c,31
-main(31,1019
-usage(439,11571
-
-block.stl,0
-
-configure,172
-program_prefix=26,668
-program_suffix=27,688
-program_transform_name=28,708
-    program_prefix=170,5822
-    program_suffix=177,6146
-    program_transform_name=194,6922
-
-configure.in,0
-
-connect.c,703
-stl_check_facets_exact(62,2690
-stl_load_edge_exact(112,3947
-stl_initialize_facet_check_exact(174,5376
-insert_hash_edge(208,6174
-stl_get_hash_for_edge(282,8194
-stl_compare_function(289,8400
-stl_check_facets_nearby(302,8674
-stl_load_edge_nearby(344,9739
-stl_free_edges(422,11821
-stl_initialize_facet_check_nearby(445,12237
-stl_record_neighbors(476,12936
-stl_match_neighbors_exact(547,15198
-stl_match_neighbors_nearby(554,15357
-stl_change_vertices(606,16409
-stl_which_vertices_to_change(670,17627
-stl_remove_facet(759,20135
-stl_remove_unconnected_facets(820,21848
-stl_remove_degenerate(863,23197
-stl_update_connects_remove_1(947,25538
-stl_fill_holes(970,26182
-stl_add_facet(1099,29096
-
-getopt.c,238
-#define _NO_PROTO26,1089
-#define const37,1306
-# define gettext(gettext67,2391
-#define	my_index	172,6351
-my_index 181,6501
-exchange 227,7946
-_getopt_initialize 285,9469
-_getopt_internal 375,12954
-getopt 679,20808
-main 698,21190
-
-getopt.h,154
-#define _GETOPT_H 19,797
-struct optionoption77,2872
-#define	no_argument	93,3221
-#define required_argument	94,3244
-#define optional_argument	95,3272
-
-getopt1.c,105
-#define const29,1042
-#define NULL 55,1833
-getopt_long 59,1860
-getopt_long_only 75,2363
-main 93,2719
-
-normals.c,255
-stl_reverse_facet(36,1346
-stl_fix_normal_directions(90,3568
-stl_check_normal_vector(214,6712
-stl_reverse_vector(287,8693
-stl_calculate_normal(296,8783
-stl_normalize_vector(346,10379
-stl_fix_normal_values(368,10823
-stl_reverse_all_facets(379,10987
-
-shared.c,61
-stl_generate_shared_vertices(27,928
-stl_write_off(147,3530
-
-stl.h,770
-#define STL_MAX(STL_MAX23,903
-#define STL_MIN(STL_MIN24,943
-#define ABS(ABS25,983
-#define LABEL_SIZE 27,1023
-#define NUM_FACET_SIZE 28,1057
-#define HEADER_SIZE 29,1090
-#define STL_MIN_FILE_SIZE 30,1124
-#define ASCII_LINES_PER_FACET 31,1159
-#define SIZEOF_EDGE_SORT 32,1192
-}stl_vertex;stl_vertex39,1278
-}stl_normal;stl_normal46,1342
-typedef char stl_extra[stl_extra48,1356
-}stl_facet;stl_facet55,1466
-#define SIZEOF_STL_FACET 56,1478
-typedef enum {binary, ascii} stl_type;stl_type58,1513
-}stl_edge;stl_edge65,1631
-typedef struct stl_hash_edgestl_hash_edge67,1643
-}stl_hash_edge;stl_hash_edge73,1790
-}stl_neighbors;stl_neighbors79,1874
-}v_indices_struct;v_indices_struct84,1927
-}stl_stats;stl_stats119,2948
-}stl_file;stl_file133,3242
-
-stl_io.c,406
-#define SEEK_SET 25,944
-#define SEEK_CUR 26,963
-#define SEEK_END 27,982
-stl_print_edges(34,1128
-stl_stats_out(52,1586
-stl_write_ascii(121,4155
-stl_print_neighbors(168,5541
-stl_put_little_int(201,6394
-stl_put_little_float(220,6827
-stl_write_binary(240,7264
-stl_write_vertex(289,8837
-stl_write_facet(298,9097
-stl_write_edge(307,9311
-stl_write_neighbor(323,9805
-stl_write_quad_object(335,10203
-
-stlinit.c,291
-#define SEEK_SET 29,1002
-#define SEEK_CUR 30,1021
-#define SEEK_END 31,1040
-stl_open(42,1363
-stl_get_little_int(51,1507
-stl_get_little_float(62,1731
-stl_initialize(79,2075
-stl_allocate(192,5048
-stl_open_merge(207,5532
-stl_reallocate(218,5743
-stl_read(234,6295
-stl_close(348,10633
-
-util.c,258
-stl_verify_neighbors(33,1084
-stl_translate(79,2363
-stl_scale(102,2944
-stl_rotate_x(126,3433
-stl_rotate_y(143,3721
-stl_rotate_z(160,4009
-stl_rotate(177,4304
-stl_get_size(192,4599
-stl_mirror_xy(225,5627
-stl_mirror_yz(246,6011
-stl_mirror_xz(267,6395

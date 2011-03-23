@@ -240,7 +240,7 @@ main(int argc, char **argv)
     }
   if(version_flag)
     {
-      printf("ADMesh - version 0.94\n");
+      printf("ADMesh - version 0.95\n");
       exit(0);
     }
   
@@ -255,7 +255,7 @@ main(int argc, char **argv)
     }
 
   printf("\
-ADMesh version 0.94, Copyright (C) 1995 Anthony D. Martin\n\
+ADMesh version 0.95, Copyright (C) 1995, 1996 Anthony D. Martin\n\
 ADMesh comes with NO WARRANTY.  This is free software, and you are welcome to\n\
 redistribute it under certain conditions.  See the file COPYING for details.\n");
 
@@ -407,7 +407,11 @@ All facets connected.  No further nearby check necessary.\n");
       printf("Checking normal values...\n");
       stl_fix_normal_values(&stl_in);
     }
-  
+
+  /* Always calculate the volume.  It shouldn't take too long */
+  printf("Calculating volume...\n");
+  stl_calculate_volume(&stl_in);
+	
   if(exact_flag)
     {
       printf("Verifying neighbors...\n");
@@ -429,7 +433,7 @@ All facets connected.  No further nearby check necessary.\n");
   if(write_dxf_flag)
     {
       printf("Writing DXF file %s\n", dxf_name);
-      stl_write_dxf(&stl_in, dxf_name, "Created by ADMesh version 0.94");
+      stl_write_dxf(&stl_in, dxf_name, "Created by ADMesh version 0.95");
     }
 
   if(write_vrml_flag)
@@ -442,14 +446,14 @@ All facets connected.  No further nearby check necessary.\n");
     {
       printf("Writing ascii file %s\n", ascii_name);
       stl_write_ascii(&stl_in, ascii_name, 
-		      "Processed by ADMesh version 0.94");
+		      "Processed by ADMesh version 0.95");
     }
   
   if(write_binary_stl_flag)
     {
       printf("Writing binary file %s\n", binary_name);
       stl_write_binary(&stl_in, binary_name,
-		       "Processed by ADMesh version 0.94");
+		       "Processed by ADMesh version 0.95");
     }
   
   if(exact_flag)
@@ -472,8 +476,8 @@ usage(int status, char *program_name)
   else
     {
       printf("\n\
-ADMesh version 0.94\n\
-Copyright (C) 1995  Anthony D. Martin\n\
+ADMesh version 0.95\n\
+Copyright (C) 1995, 1996  Anthony D. Martin\n\
 Usage: %s [OPTION]... file\n", program_name);
       printf("\n\
      --x-rotate=angle     Rotate CCW about x-axis by angle degrees\n\

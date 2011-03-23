@@ -1,9 +1,12 @@
-This document describes the use of ADMesh version 0.94.  ADMesh is a program
-for processing triangulated solid meshes.  Currently, ADMesh only supports
-the STL file format that is used for rapid prototyping applications,
-although it can write an OFF file which is used by Geomview.  OFF is a
-shared vertices format that could be used as a template for other
-shared vertices formats.
+Note:  This manual is slightly out of date.  Specifically it doesn't
+mention OFF, VRML, or DXF files.  However, there isn't much to know about
+these options.  If you just type 'admesh --help' a list of options will be
+printed.
+
+This document describes the use of ADMesh version 0.93. ADMesh is a program
+for processing triangulated solid meshes. Currently, ADMesh only reads the
+STL file format that is used for rapid prototyping applications, although it
+can write STL, VRML, OFF, and DXF files.
 
 For information about compiling ADMesh, see the file INSTALL.  The file
 README contains a brief description of ADMesh along with its features and
@@ -344,10 +347,10 @@ ADMesh Output
 After ADMesh has processed a mesh, it prints out a page of information about
 that mesh.  The output looks like the following:
 
-================= Results produced by ADMesh version 0.94 =================
+================= Results produced by ADMesh version 0.95 =================
 Input file         : sphere.stl
 File type          : Binary STL file
-Header             : Processed by ADMesh version 0.94
+Header             : Processed by ADMesh version 0.95
 ============== Size ==============
 Min X = -1.334557, Max X = 1.370952
 Min Y = -1.377953, Max Y = 1.377230
@@ -358,8 +361,8 @@ Facets with 1 disconnected edge  :    18                   0
 Facets with 2 disconnected edges :     3                   0
 Facets with 3 disconnected edges :     0                   0
 Total disconnected facets        :    21                   0
-=== Processing Statistics ===
-Number of parts       :     1
+=== Processing Statistics ===     ===== Other Statistics =====
+Number of parts       :     1        Volume   :  10.889216
 Degenerate facets     :     0
 Edges fixed           :    24
 Facets removed        :     0
@@ -381,7 +384,7 @@ File type          : Binary STL file
    file and ASCII STL file.  ADMesh automatically detect the type of input
    file.
 
-Header             : Processed by ADMesh version 0.94
+Header             : Processed by ADMesh version 0.95
    The first 80 characters of the STL file.  The first 80 bytes of a binary
    STL file or the first line of an ASCII STL file can contain some text.
    Usually, the CAD system that has created that file, or the last program

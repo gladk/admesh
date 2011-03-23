@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996  Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -93,6 +93,7 @@ typedef struct
   stl_vertex    size;
   float         bounding_diameter;
   float         shortest_edge;
+  float         volume;
   unsigned      number_of_blocks;
   int           connected_edges;
   int           connected_facets_1_edge;
@@ -166,4 +167,7 @@ extern void stl_generate_shared_vertices(stl_file *stl);
 extern void stl_write_off(stl_file *stl, char *file);
 extern void stl_write_dxf(stl_file *stl, char *file, char *label);
 extern void stl_write_vrml(stl_file *stl, char *file);
+extern void stl_calculate_normal(float normal[], stl_facet *facet);
+extern void stl_normalize_vector(float v[]);
+extern void stl_calculate_volume(stl_file *stl);
 

@@ -52,7 +52,7 @@ void
 stl_stats_out(stl_file *stl, FILE *file, char *input_file)
 {
   fprintf(file, "\n\
-================= Results produced by ADMesh version 0.94 ================\n");
+================= Results produced by ADMesh version 0.95 ================\n");
   fprintf(file, "\
 Input file         : %s\n", input_file);
   if(stl->stats.type == binary)
@@ -98,9 +98,11 @@ Total disconnected facets        : %5d               %5d\n",
 	  stl->stats.facets_w_3_bad_edge, stl->stats.number_of_facets - 
 	  stl->stats.connected_facets_3_edge);
 	  
-  fprintf(file, "=== Processing Statistics ===\n");
+  fprintf(file, 
+"=== Processing Statistics ===     ===== Other Statistics =====\n");
   fprintf(file, "\
-Number of parts       : %5d\n", stl->stats.number_of_parts);
+Number of parts       : %5d        Volume   : % f\n",
+	  stl->stats.number_of_parts, stl->stats.volume);
   fprintf(file, "\
 Degenerate facets     : %5d\n", stl->stats.degenerate_facets);
   fprintf(file, "\
