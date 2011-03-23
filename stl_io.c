@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996 Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ void
 stl_stats_out(stl_file *stl, FILE *file, char *input_file)
 {
   fprintf(file, "\n\
-================= Results produced by ADMesh version 0.93 ================\n");
+================= Results produced by ADMesh version 0.94 ================\n");
   fprintf(file, "\
 Input file         : %s\n", input_file);
   if(stl->stats.type == binary)
@@ -412,3 +412,53 @@ stl_write_quad_object(stl_file *stl, char *file)
   fclose(fp);
 }
   
+void
+stl_write_dxf(stl_file *stl, char *file, char *label)
+{
+  int       i;
+  FILE      *fp;
+  char      *error_msg;
+  
+  
+  /* Open the file */
+  fp = fopen(file, "w");
+  if(fp == NULL)
+    {
+      error_msg = 
+	malloc(81 + strlen(file)); /* Allow 80 chars+file size for message */
+      sprintf(error_msg, "stl_write_ascii: Couldn't open %s for writing",
+	      file);
+      perror(error_msg);
+      free(error_msg);
+      exit(1);
+    }
+  
+  fprintf(fp, "999\n%s\n", label);
+  fprintf(fp, "0\nSECTION\n2\nHEADER\n0\nENDSEC\n");
+  fprintf(fp, "0\nSECTION\n2\nTABLES\n0\nTABLE\n2\nLAYER\n70\n1\n\
+0\nLAYER\n2\n0\n70\n0\n62\n7\n6\nCONTINUOUS\n0\nENDTAB\n0\nENDSEC\n");
+  fprintf(fp, "0\nSECTION\n2\nBLOCKS\n0\nENDSEC\n");
+  
+  fprintf(fp, "0\nSECTION\n2\nENTITIES\n");
+
+  for(i = 0; i < stl->stats.number_of_facets; i++)
+    {
+      fprintf(fp, "0\n3DFACE\n8\n0\n");
+      fprintf(fp, "10\n%f\n20\n%f\n30\n%f\n",
+	      stl->facet_start[i].vertex[0].x, stl->facet_start[i].vertex[0].y,
+	      stl->facet_start[i].vertex[0].z);
+      fprintf(fp, "11\n%f\n21\n%f\n31\n%f\n",
+	      stl->facet_start[i].vertex[1].x, stl->facet_start[i].vertex[1].y,
+	      stl->facet_start[i].vertex[1].z);
+      fprintf(fp, "12\n%f\n22\n%f\n32\n%f\n",
+	      stl->facet_start[i].vertex[2].x, stl->facet_start[i].vertex[2].y,
+	      stl->facet_start[i].vertex[2].z);
+      fprintf(fp, "13\n%f\n23\n%f\n33\n%f\n",
+	      stl->facet_start[i].vertex[2].x, stl->facet_start[i].vertex[2].y,
+	      stl->facet_start[i].vertex[2].z);
+    }
+  
+  fprintf(fp, "0\nENDSEC\n0\nEOF\n");
+  
+  fclose(fp);
+}

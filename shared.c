@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996  Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -178,4 +178,65 @@ stl_write_off(stl_file *stl, char *file)
       fprintf(fp, "\t3 %d %d %d\n", stl->v_indices[i].vertex[0],
 	      stl->v_indices[i].vertex[1], stl->v_indices[i].vertex[2]);
     }
+  fclose(fp);
+}
+
+void
+stl_write_vrml(stl_file *stl, char *file)
+{
+  int i;
+  FILE      *fp;
+  char      *error_msg;
+  
+  
+  /* Open the file */
+  fp = fopen(file, "w");
+  if(fp == NULL)
+    {
+      error_msg = 
+	malloc(81 + strlen(file)); /* Allow 80 chars+file size for message */
+      sprintf(error_msg, "stl_write_ascii: Couldn't open %s for writing",
+	      file);
+      perror(error_msg);
+      free(error_msg);
+      exit(1);
+    }
+  
+  fprintf(fp, "#VRML V1.0 ascii\n\n");
+  fprintf(fp, "Separator {\n");
+  fprintf(fp, "\tDEF STLShape ShapeHints {\n");
+  fprintf(fp, "\t\tvertexOrdering COUNTERCLOCKWISE\n");
+  fprintf(fp, "\t\tfaceType CONVEX\n");
+  fprintf(fp, "\t\tshapeType SOLID\n");
+  fprintf(fp, "\t\tcreaseAngle 0.0\n");
+  fprintf(fp, "\t}\n");
+  fprintf(fp, "\tDEF STLModel Separator {\n");
+  fprintf(fp, "\t\tDEF STLColor Material {\n");
+  fprintf(fp, "\t\t\temissiveColor 0.700000 0.700000 0.000000\n");
+  fprintf(fp, "\t\t}\n");
+  fprintf(fp, "\t\tDEF STLVertices Coordinate3 {\n");
+  fprintf(fp, "\t\t\tpoint [\n");
+
+  for(i = 0; i < (stl->stats.shared_vertices - 1); i++)
+    {
+      fprintf(fp, "\t\t\t\t%f %f %f,\n",
+	      stl->v_shared[i].x, stl->v_shared[i].y, stl->v_shared[i].z);
+    }
+  fprintf(fp, "\t\t\t\t%f %f %f]\n",
+	  stl->v_shared[i].x, stl->v_shared[i].y, stl->v_shared[i].z);
+  fprintf(fp, "\t\t}\n");
+  fprintf(fp, "\t\tDEF STLTriangles IndexedFaceSet {\n");
+  fprintf(fp, "\t\t\tcoordIndex [\n");
+
+  for(i = 0; i < (stl->stats.number_of_facets - 1); i++)
+    {
+      fprintf(fp, "\t\t\t\t%d, %d, %d, -1,\n", stl->v_indices[i].vertex[0],
+	      stl->v_indices[i].vertex[1], stl->v_indices[i].vertex[2]);
+    }
+  fprintf(fp, "\t\t\t\t%d, %d, %d, -1]\n", stl->v_indices[i].vertex[0],
+	  stl->v_indices[i].vertex[1], stl->v_indices[i].vertex[2]);
+  fprintf(fp, "\t\t}\n");
+  fprintf(fp, "\t}\n");
+  fprintf(fp, "}\n");
+  fclose(fp);
 }

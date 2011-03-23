@@ -29,3 +29,8 @@ Wed Nov  1 08:39:17 PST 1995  Anthony Martin <amartin@engr.csulb.edu>
 Sat Jan 20 23:43:01 PST 1996  Anthony Martin <amartin@engr.csulb.edu>
         *  stlinit.c  Initialize pointers to NULL.  Check whether they have
 	been allocated before free()ing them.  Duh.
+	
+Thu Jan 25 16:02:57 PST 1996 Anthony Martin <amartin@engr.csulb.edu>
+        *  shared.c Add   fclose(fp); to stl_write_off().
+	*  stl_io.c Add dxf write capability
+	*  shared.c Add vrml write capability

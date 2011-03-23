@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996  Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -48,6 +48,8 @@ main(int argc, char **argv)
   char     *ascii_name = NULL;
   char     *merge_name = NULL;
   char     *off_name = NULL;
+  char     *dxf_name = NULL;
+  char     *vrml_name = NULL;
   int      fixall_flag = 1;	       /* Default behavior is to fix all. */
   int      exact_flag = 0;	       /* All checks turned off by default. */
   int      tolerance_flag = 0;	       /* Is tolerance specified on cmdline */
@@ -61,6 +63,8 @@ main(int argc, char **argv)
   int      write_ascii_stl_flag = 0;
   int      generate_shared_vertices_flag = 0;
   int      write_off_flag = 0;
+  int      write_dxf_flag = 0;
+  int      write_vrml_flag = 0;
   int      translate_flag = 0;
   int      scale_flag = 0;
   int      rotate_x_flag = 0;
@@ -79,7 +83,7 @@ main(int argc, char **argv)
   
   enum {rotate_x = 1000, rotate_y, rotate_z, merge, help, version,
       mirror_xy, mirror_yz, mirror_xz, scale, translate, reverse_all,
-      off_file};
+      off_file, dxf_file, vrml_file};
   
   struct option long_options[] =
     {
@@ -97,6 +101,8 @@ main(int argc, char **argv)
 	{"write-binary-stl",   required_argument, NULL, 'b'},
 	{"write-ascii-stl",    required_argument, NULL, 'a'},
 	{"write-off",          required_argument, NULL, off_file},
+	{"write-dxf",          required_argument, NULL, dxf_file},
+	{"write-vrml",         required_argument, NULL, vrml_file},
 	{"translate",          required_argument, NULL, translate},
 	{"scale",              required_argument, NULL, scale},
 	{"x-rotate",           required_argument, NULL, rotate_x},
@@ -174,6 +180,15 @@ main(int argc, char **argv)
 	  write_off_flag = 1;
 	  off_name = optarg;
 	  break;
+	 case vrml_file:
+	  generate_shared_vertices_flag = 1;
+	  write_vrml_flag = 1;
+	  vrml_name = optarg;
+	  break;
+	 case dxf_file:
+	  write_dxf_flag = 1;
+	  dxf_name = optarg;
+	  break;
 	 case translate:
 	  translate_flag = 1;
 	  sscanf(optarg, "%f,%f,%f", &x_trans, &y_trans, &z_trans);
@@ -225,7 +240,7 @@ main(int argc, char **argv)
     }
   if(version_flag)
     {
-      printf("ADMesh - version 0.93\n");
+      printf("ADMesh - version 0.94\n");
       exit(0);
     }
   
@@ -240,7 +255,7 @@ main(int argc, char **argv)
     }
 
   printf("\
-ADMesh version 0.93, Copyright (C) 1995 Anthony D. Martin\n\
+ADMesh version 0.94, Copyright (C) 1995 Anthony D. Martin\n\
 ADMesh comes with NO WARRANTY.  This is free software, and you are welcome to\n\
 redistribute it under certain conditions.  See the file COPYING for details.\n");
 
@@ -411,18 +426,30 @@ All facets connected.  No further nearby check necessary.\n");
       stl_write_off(&stl_in, off_name);
     }
 
+  if(write_dxf_flag)
+    {
+      printf("Writing DXF file %s\n", dxf_name);
+      stl_write_dxf(&stl_in, dxf_name, "Created by ADMesh version 0.94");
+    }
+
+  if(write_vrml_flag)
+    {
+      printf("Writing VRML file %s\n", vrml_name);
+      stl_write_vrml(&stl_in, vrml_name);
+    }
+
   if(write_ascii_stl_flag)
     {
       printf("Writing ascii file %s\n", ascii_name);
       stl_write_ascii(&stl_in, ascii_name, 
-		      "Processed by ADMesh version 0.93");
+		      "Processed by ADMesh version 0.94");
     }
   
   if(write_binary_stl_flag)
     {
       printf("Writing binary file %s\n", binary_name);
       stl_write_binary(&stl_in, binary_name,
-		       "Processed by ADMesh version 0.93");
+		       "Processed by ADMesh version 0.94");
     }
   
   if(exact_flag)
@@ -445,7 +472,7 @@ usage(int status, char *program_name)
   else
     {
       printf("\n\
-ADMesh version 0.93\n\
+ADMesh version 0.94\n\
 Copyright (C) 1995  Anthony D. Martin\n\
 Usage: %s [OPTION]... file\n", program_name);
       printf("\n\
@@ -472,12 +499,15 @@ Usage: %s [OPTION]... file\n", program_name);
  -b, --write-binary-stl=name   Output a binary STL file called name\n\
  -a, --write-ascii-stl=name    Output an ascii STL file called name\n\
      --write-off=name     Output a Geomview OFF format file called name\n\
+     --write-dxf=name     Output a DXF format file called name\n\
+     --write-vrml=name    Output a VRML format file called name\n\
      --help               Display this help and exit\n\
      --version            Output version information and exit\n\
 \n\
 The functions are executed in the same order as the options shown here.\n\
 So check here to find what happens if, for example, --translate and --merge\n\
-options are specified together.\n");
+options are specified together.  The order of the options specified on the\n\
+command line is not important.\n");
     }
   exit(status);
 }  

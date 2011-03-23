@@ -1,5 +1,5 @@
 /*  ADMesh -- process triangulated solid meshes
- *  Copyright (C) 1995  Anthony D. Martin
+ *  Copyright (C) 1995, 1996  Anthony D. Martin
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
