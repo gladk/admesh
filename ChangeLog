@@ -1,0 +1,4 @@
+Tue Aug  1 03:25:46 PDT 1995  Anthony Martin <amartin@engr.csulb.edu>
+
+        *  Fix it so that big endian systems write a little endian file
+	Also, write null characters after the label in stl_write_binary
