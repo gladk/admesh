@@ -347,10 +347,10 @@ ADMesh Output
 After ADMesh has processed a mesh, it prints out a page of information about
 that mesh.  The output looks like the following:
 
-================= Results produced by ADMesh version 0.95 =================
+================= Results produced by ADMesh version 0.96 =================
 Input file         : sphere.stl
 File type          : Binary STL file
-Header             : Processed by ADMesh version 0.95
+Header             : Processed by ADMesh version 0.96
 ============== Size ==============
 Min X = -1.334557, Max X = 1.370952
 Min Y = -1.377953, Max Y = 1.377230
@@ -384,7 +384,7 @@ File type          : Binary STL file
    file and ASCII STL file.  ADMesh automatically detect the type of input
    file.
 
-Header             : Processed by ADMesh version 0.95
+Header             : Processed by ADMesh version 0.96
    The first 80 characters of the STL file.  The first 80 bytes of a binary
    STL file or the first line of an ASCII STL file can contain some text.
    Usually, the CAD system that has created that file, or the last program

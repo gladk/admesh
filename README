@@ -1,4 +1,4 @@
-                     ADMesh version 0.95
+                     ADMesh version 0.96
                     ********************
 
 ADMesh is a program for processing triangulated solid meshes. Currently,
@@ -27,10 +27,10 @@ Features:
 
  ** ADMesh outputs the following statistics after processing:
 
-================= Results produced by ADMesh version 0.95 =================
+================= Results produced by ADMesh version 0.96 =================
 Input file         : sphere.stl
 File type          : Binary STL file
-Header             : Processed by ADMesh version 0.95
+Header             : Processed by ADMesh version 0.96
 ============== Size ==============
 Min X = -1.334557, Max X = 1.370952
 Min Y = -1.377953, Max Y = 1.377230
