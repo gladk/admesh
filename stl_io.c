@@ -19,6 +19,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include "stl.h"
 
 #if !defined(SEEK_SET)
@@ -132,9 +133,9 @@ stl_write_ascii(stl_file *stl, char *file, char *label)
   if(fp == NULL)
     {
       error_msg = 
-	malloc(81 + strlen(file)); /* Allow 80 chars+file size for message */
+      malloc(81 + strlen(file)); /* Allow 80 chars+file size for message */
       sprintf(error_msg, "stl_write_ascii: Couldn't open %s for writing",
-	      file);
+      file);
       perror(error_msg);
       free(error_msg);
       exit(1);

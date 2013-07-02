@@ -121,7 +121,7 @@ stl_initialize(stl_file *stl, char *file)
   
   /* Check for binary or ASCII file */
   fseek(stl->fp, HEADER_SIZE, SEEK_SET);
-  fread(chtest, sizeof(chtest), 1, stl->fp);
+  size_t retSize = fread(chtest, sizeof(chtest), 1, stl->fp);
   stl->stats.type = ascii;
   for(i = 0; i < sizeof(chtest); i++)
     {
@@ -147,9 +147,12 @@ stl_initialize(stl_file *stl, char *file)
       num_facets = (file_size - HEADER_SIZE) / SIZEOF_STL_FACET;
 
       /* Read the header */
-      fread(stl->stats.header, LABEL_SIZE, 1, stl->fp);
-      stl->stats.header[80] = '\0';
-
+      retSize = fread(stl->stats.header, LABEL_SIZE, 1, stl->fp);
+      
+      if (retSize>79) {
+        stl->stats.header[80] = '\0';
+      }
+      
       /* Read the int following the header.  This should contain # of facets */
       header_num_facets = stl_get_little_int(stl->fp);
       if(num_facets != header_num_facets)
@@ -209,7 +212,7 @@ stl_allocate(stl_file *stl)
 void
 stl_open_merge(stl_file *stl, char *file_to_merge)
 {
-  int num_facets_so_far, first_facet_of_merged;
+  int num_facets_so_far;
   
   //Record how many facets we have so far from the first file.  We will start putting
   //facets in the next position.  Since we're 0-indexed, it'l be the same position.
@@ -312,19 +315,19 @@ stl_read(stl_file *stl, int first_facet, int first)
 	}
       else
 	/* Read a single facet from an ASCII .STL file */
-	{
-      	  fscanf(stl->fp, "%*s %*s %f %f %f\n", &facet.normal.x,
-		 &facet.normal.y, &facet.normal.z);
-	  fscanf(stl->fp, "%*s %*s");
-	  fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[0].x,
-		 &facet.vertex[0].y,  &facet.vertex[0].z);
-	  fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[1].x,
-		 &facet.vertex[1].y,  &facet.vertex[1].z);
-	  fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[2].x,
-		 &facet.vertex[2].y,  &facet.vertex[2].z);
-	  fscanf(stl->fp, "%*s");
-	  fscanf(stl->fp, "%*s");
-	}
+  {
+    size_t retSize = fscanf(stl->fp, "%*s %*s %f %f %f\n", 
+      &facet.normal.x, &facet.normal.y, &facet.normal.z);
+    retSize = fscanf(stl->fp, "%*s %*s");
+    retSize = fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[0].x,
+      &facet.vertex[0].y,  &facet.vertex[0].z);
+    retSize = fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[1].x,
+      &facet.vertex[1].y,  &facet.vertex[1].z);
+    retSize = fscanf(stl->fp, "%*s %f %f %f\n", &facet.vertex[2].x,
+      &facet.vertex[2].y,  &facet.vertex[2].z);
+    retSize = fscanf(stl->fp, "%*s");
+    retSize = fscanf(stl->fp, "%*s");
+  }
       /* Write the facet into memory. */
       stl->facet_start[i] = facet;
       

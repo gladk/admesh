@@ -27,8 +27,7 @@
 
 static void usage(int status, char *program_name);
 
-void
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   stl_file stl_in;
   int      i;
