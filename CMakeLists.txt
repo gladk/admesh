@@ -15,4 +15,5 @@ TARGET_LINK_LIBRARIES(admesh ${M_LIB})
 INSTALL(TARGETS admesh DESTINATION ${CMAKE_INSTALL_BINDIR})
 #===========================================================
 INSTALL(FILES ADMESH.DOC block.stl DESTINATION ${CMAKE_INSTALL_DOCDIR})
+INSTALL(FILES admesh.1 DESTINATION ${CMAKE_INSTALL_MANDIR})
 #===========================================================

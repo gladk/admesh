@@ -15,3 +15,6 @@ Do the following:
 
 That should do it.  You should have an executable file called admesh in:  
   /INSTALL_PATH/FOR/ADMESH/bin/admesh
+
+To regenerate manpage for admesh, use help2man tool:
+help2man admessh --name="a program for processing triangulated solid meshes" > admesh.1
