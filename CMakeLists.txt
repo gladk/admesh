@@ -14,5 +14,5 @@ ADD_EXECUTABLE(admesh admesh.c connect.c stl_io.c stlinit.c util.c normals.c sha
 TARGET_LINK_LIBRARIES(admesh ${M_LIB})
 INSTALL(TARGETS admesh DESTINATION ${CMAKE_INSTALL_BINDIR})
 #===========================================================
-INSTALL(FILES ADMESH.DOC DESTINATION ${CMAKE_INSTALL_DOCDIR})
+INSTALL(FILES ADMESH.DOC block.stl DESTINATION ${CMAKE_INSTALL_DOCDIR})
 #===========================================================
