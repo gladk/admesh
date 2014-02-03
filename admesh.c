@@ -116,6 +116,7 @@ int main(int argc, char **argv)
 	{"version",            no_argument,       NULL, version},
 	{NULL, 0, NULL, 0}
     };
+  char tmp_msg[256];
 
   program_name = argv[0];
   while((c = getopt_long(argc, argv, "et:i:m:nufdcvb:a:",
@@ -240,7 +241,7 @@ int main(int argc, char **argv)
     }
   if(version_flag)
     {
-      printf("ADMesh - version %g\n",VERSION);
+      printf("ADMesh - version %s\n",VERSION);
       exit(0);
     }
   
@@ -255,7 +256,7 @@ int main(int argc, char **argv)
     }
 
   printf("\
-ADMesh version %g, Copyright (C) 1995, 1996 Anthony D. Martin\n\
+ADMesh version %s, Copyright (C) 1995, 1996 Anthony D. Martin\n\
 ADMesh comes with NO WARRANTY.  This is free software, and you are welcome to\n\
 redistribute it under certain conditions.  See the file COPYING for details.\n",VERSION);
 
@@ -434,8 +435,7 @@ All facets connected.  No further nearby check necessary.\n");
   if(write_dxf_flag)
     {
       printf("Writing DXF file %s\n", dxf_name);
-      char *tmp_msg = NULL;
-      sprintf(tmp_msg,"Created by ADMesh version %g",VERSION);
+      snprintf(tmp_msg, sizeof(tmp_msg), "Created by ADMesh version %s",VERSION);
       stl_write_dxf(&stl_in, dxf_name, tmp_msg);
     }
 
@@ -449,8 +449,7 @@ All facets connected.  No further nearby check necessary.\n");
     {
       printf("Writing ascii file %s\n", ascii_name);
 
-      char *tmp_msg = NULL;
-      sprintf(tmp_msg,"Processed by ADMesh version %g",VERSION);
+      snprintf(tmp_msg, sizeof(tmp_msg), "Processed by ADMesh version %s",VERSION);
       stl_write_ascii(&stl_in, ascii_name, tmp_msg);
     }
   
@@ -458,8 +457,7 @@ All facets connected.  No further nearby check necessary.\n");
     {
       printf("Writing binary file %s\n", binary_name);
       
-      char *tmp_msg = NULL;
-      sprintf(tmp_msg,"Processed by ADMesh version %g",VERSION);
+      snprintf(tmp_msg, sizeof(tmp_msg), "Processed by ADMesh version %s",VERSION);
       stl_write_binary(&stl_in, binary_name, tmp_msg);
     }
   
@@ -483,7 +481,7 @@ usage(int status, char *program_name)
   else
     {
       printf("\n\
-ADMesh version %g\n\
+ADMesh version %s\n\
 Copyright (C) 1995, 1996  Anthony D. Martin\n\
 Usage: %s [OPTION]... file\n", VERSION, program_name);
       printf("\n\
