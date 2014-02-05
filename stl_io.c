@@ -54,7 +54,7 @@ void
 stl_stats_out(stl_file *stl, FILE *file, char *input_file)
 {
   fprintf(file, "\n\
-================= Results produced by ADMesh version %g ================\n",VERSION);
+================= Results produced by ADMesh version %s ================\n",VERSION);
   fprintf(file, "\
 Input file         : %s\n", input_file);
   if(stl->stats.type == binary)
@@ -218,7 +218,8 @@ stl_put_little_int(FILE *fp, int value_in)
   new_value |= (value.char_value[1] & 0xFF) << 0x08;
   new_value |= (value.char_value[2] & 0xFF) << 0x10;
   new_value |= (value.char_value[3] & 0xFF) << 0x18;
-  fwrite(&new_value, sizeof(int), 1, fp);
+  if (fwrite(&new_value, sizeof(int), 1, fp) != 1)
+    fprintf(stderr, "There was a problem writing a int value.\n");
 }
 
 static void
@@ -237,7 +238,8 @@ stl_put_little_float(FILE *fp, float value_in)
   new_value |= (value.char_value[1] & 0xFF) << 0x08;
   new_value |= (value.char_value[2] & 0xFF) << 0x10;
   new_value |= (value.char_value[3] & 0xFF) << 0x18;
-  fwrite(&new_value, sizeof(int), 1, fp);
+  if(fwrite(&new_value, sizeof(int), 1, fp) != 1)
+    fprintf(stderr, "There was a problem writing a float value.\n");
 }
 
 
